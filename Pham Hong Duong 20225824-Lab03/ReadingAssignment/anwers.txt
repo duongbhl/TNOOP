@@ -1,0 +1,23 @@
+Questions: Is JAVA a Pass by Value or a Pass by Reference programming language? 
+
+Java là pass-by-value.
+•	Với kiểu nguyên thủy (int, double, v.v.): Giá trị được sao chép. Thay đổi trong hàm không ảnh hưởng đến biến gốc.
+•	Với đối tượng: Tham chiếu (reference) tới đối tượng được sao chép.
+o	Thay đổi nội dung đối tượng ảnh hưởng đến biến gốc.
+o	Nhưng gán lại tham chiếu trong hàm không ảnh hưởng đến tham chiếu gốc.
+Java luôn là pass-by-value, dù đôi khi làm việc với đối tượng có vẻ giống pass-by-reference.
+
+
+
+Questions: After the call of swap(jungleDVD, cinderellaDVD) why does the title of these two objects still remain?
+
+Tiêu đề của hai đối tượng vẫn giữ nguyên vì trong Java, tham số được truyền vào phương thức là giá trị 
+của đối tượng, không phải là tham chiếu đến đối tượng. Khi ta thay đổi giá trị của tham số bên trong phương thức (như việc  đổi chỗ giữa o1 và o2), sự thay đổi này không ảnh hưởng đến giá trị của các đối tượng gốc. 
+
+
+
+
+Questions: After the call of changeTitle(jungleDVD, cinderellaDVD.getTitle()) why is the title of the JungleDVD changed?
+
+Tiêu đề của jungleDVD bị thay đổi vì trong phương thức changeTitle, ta thực hiện thay đổi trực tiếp 
+trên đối tượng dvd (được truyền vào phương thức) bằng cách gọi  dvd.setTitle(title). Điều này ảnh hưởng trực tiếp đến đối tượng gốc được truyền vào phương thức.
