@@ -1,0 +1,46 @@
+If the passing object is not an instance of Media, what happens?
+    Nếu đối tượng được truyền không phải là một instance của Media, phương thức equals() sẽ trả về false. Điều này đảm bảo rằng các đối tượng thuộc các kiểu không liên quan sẽ không bị coi là bằng nhau.
+
+
+
+Iterate through the list and print out the information of the media by using toString() method. Observe what happens and explain in detail.
+    Khi bạn gọi toString() trên một đối tượng trong danh sách, phương thức toString() tương ứng với kiểu thực tế của đối tượng đó sẽ được thực thi (không phải kiểu tham chiếu Media). Đây là ví dụ của tính đa hình ở mức hành vi.
+
+
+What class should implement the Comparable interface?
+    Lớp nên triển khai giao diện Comparable là lớp mà bạn muốn sắp xếp, ở đây là lớp 
+In those classes, how should you implement the compareTo()method be to reflect the ordering that we want?
+
+    @Override
+    public int compareTo(Item other) {
+        int titleComparison = this.title.compareTo(other.title);
+        if (titleComparison != 0) {
+            return titleComparison; // Sắp xếp theo tiêu đề
+        }
+        return Double.compare(this.cost, other.cost); // Sắp xếp theo chi phí
+    }
+
+Can we have two ordering rules of the item (by title then cost and by cost then title) if we use this Comparable interface approach?
+    Giao diện Comparable chỉ cho phép một thứ tự tự nhiên duy nhất cho mỗi lớp. Nếu bạn muốn hỗ trợ nhiều quy tắc sắp xếp (ví dụ: theo tiêu đề sau đó là chi phí, và theo chi phí sau đó là tiêu đề), bạn sẽ cần sử dụng một cách tiếp cận khác, chẳng hạn như sử dụng Comparator cho các thứ tự thay thế.
+
+Suppose the DVDs has a different ordering rule from the other media types, that is by title, then decreasing length, then cost. How would you modify your code to allow this?
+    public class DigitalVideoDisc extends Media {
+    private int length; // Độ dài
+
+    @Override
+    public int compareTo(Item other) {
+        if (other instanceof DigitalVideoDisc) {
+            DigitalVideoDisc otherDVD = (DigitalVideoDisc) other;
+            int titleComparison = this.title.compareTo(otherDVD.title);
+            if (titleComparison != 0) {
+                return titleComparison; // Sắp xếp theo tiêu đề
+            }
+            int lengthComparison = Integer.compare(otherDVD.length, this.length); // Độ dài giảm dần
+            if (lengthComparison != 0) {
+                return lengthComparison; // Sắp xếp theo độ dài
+            }
+            return Double.compare(this.cost, otherDVD.cost); // Sắp xếp theo chi phí
+        }
+        return super.compareTo(other); // Sử dụng quy tắc sắp xếp của lớp Item
+    }
+}
