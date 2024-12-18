@@ -29,8 +29,10 @@ public class PainterController {
         } else if ("erase".equals(mode)) {
             // Erase by removing nodes under the mouse cursor
 //
-            Circle newCircle = new Circle(event.getX(), event.getY(), 4, Color.WHITE);
-            drawingAreaPane.getChildren().add(newCircle);
+            drawingAreaPane.getChildren().removeIf(node ->
+                node instanceof Circle &&
+                node.getBoundsInParent().contains(event.getX(), event.getY())
+            );
 
         }
     }
