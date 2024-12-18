@@ -33,7 +33,12 @@ public class StoreScreen extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                Book book=new Book(null,null,0);
+                Book book= null;
+                try {
+                    book = new Book(null,null,0);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
                 AddBookToStoreScreen addBookToStoreScreen = new AddBookToStoreScreen(store,cart,book);
                 dispose();
             }
@@ -44,7 +49,12 @@ public class StoreScreen extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                CompactDisc cd=new CompactDisc(null,null,0);
+                CompactDisc cd= null;
+                try {
+                    cd = new CompactDisc(null,null,0);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
                 AddCompactDiscToStoreScreen addCdToStoreScreen = new AddCompactDiscToStoreScreen(store,cart,cd);
                 dispose();
             }
@@ -55,7 +65,12 @@ public class StoreScreen extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                DigitalVideoDisc dvd=new DigitalVideoDisc(null,null,0);
+                DigitalVideoDisc dvd= null;
+                try {
+                    dvd = new DigitalVideoDisc(null,null,0);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
                 AddDigitalVideoDiscToStoreScreen addDVDToStoreScreen = new AddDigitalVideoDiscToStoreScreen(store,cart,dvd);
                 dispose();
             }

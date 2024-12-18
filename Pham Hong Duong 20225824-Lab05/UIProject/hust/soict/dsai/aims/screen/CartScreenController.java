@@ -2,6 +2,7 @@ package hust.soict.dsai.aims.screen;
 
 
 import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.exception.PlayerException;
 import hust.soict.dsai.aims.media.*;
 import hust.soict.dsai.aims.store.Store;
 import javafx.application.Platform;
@@ -14,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import javax.naming.LimitExceededException;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
@@ -65,14 +67,22 @@ public class CartScreenController {
         Media media=tblMedia.getSelectionModel().getSelectedItem();
         if(media instanceof Playable){
             Playable playable=(Playable)media;
-            playable.play();
+            try {
+                playable.play();
+            } catch (PlayerException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
     @FXML
     void btnRemovePressed(javafx.event.ActionEvent event) {
         Media media=tblMedia.getSelectionModel().getSelectedItem();
-        cart.removeMedia(media);
+        try {
+            cart.removeMedia(media);
+        } catch (LimitExceededException e) {
+            throw new RuntimeException(e);
+        }
         totalCost.setText(String.valueOf(totalCost()));
     }
 
@@ -80,24 +90,24 @@ public class CartScreenController {
     void openStoreScreen(javafx.event.ActionEvent event) {
         //Store store = new Store();
         //Cart cart=new Cart();
-        Book book1 = new Book("duong","123",100);
-        CompactDisc cd1=new CompactDisc("long","123",200);
-        DigitalVideoDisc dvd1=new DigitalVideoDisc("duc","123",300);
-        Book book2 = new Book("duy","123",100);
-        CompactDisc cd2=new CompactDisc("linh","123",200);
-        DigitalVideoDisc dvd2=new DigitalVideoDisc("dung","123",300);
-        Book book3 = new Book("huy","123",100);
-        CompactDisc cd3=new CompactDisc("hung","123",200);
-        DigitalVideoDisc dvd3=new DigitalVideoDisc("cuong","123",300);
-        store.addMedia(book1);
-        store.addMedia(cd1);
-        store.addMedia(dvd1);
-        store.addMedia(book2);
-        store.addMedia(cd2);
-        store.addMedia(dvd2);
-        store.addMedia(book3);
-        store.addMedia(cd3);
-        store.addMedia(dvd3);
+//        Book book1 = new Book("duong","123",100);
+//        CompactDisc cd1=new CompactDisc("long","123",200);
+//        DigitalVideoDisc dvd1=new DigitalVideoDisc("duc","123",300);
+//        Book book2 = new Book("duy","123",100);
+//        CompactDisc cd2=new CompactDisc("linh","123",200);
+//        DigitalVideoDisc dvd2=new DigitalVideoDisc("dung","123",300);
+//        Book book3 = new Book("huy","123",100);
+//        CompactDisc cd3=new CompactDisc("hung","123",200);
+//        DigitalVideoDisc dvd3=new DigitalVideoDisc("cuong","123",300);
+//        store.addMedia(book1);
+//        store.addMedia(cd1);
+//        store.addMedia(dvd1);
+//        store.addMedia(book2);
+//        store.addMedia(cd2);
+//        store.addMedia(dvd2);
+//        store.addMedia(book3);
+//        store.addMedia(cd3);
+//        store.addMedia(dvd3);
         StoreScreen storeScreen=new StoreScreen(store,cart);
     }
 

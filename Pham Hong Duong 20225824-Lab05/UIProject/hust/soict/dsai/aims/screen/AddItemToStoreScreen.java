@@ -60,7 +60,11 @@ public abstract class AddItemToStoreScreen extends JFrame {
                 int tmp=store.getItemsInStore().size();
                 media.setTitle(tftitle.getText());
                 media.setCategory(tfcategory.getText());
-                media.setCost(Float.parseFloat(tfcost.getText()));
+                try {
+                    media.setCost(Float.parseFloat(tfcost.getText()));
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
                 store.addMedia(media);
                 int tmp2=store.getItemsInStore().size();
                 MediaStore cell=new MediaStore(store.getItemsInStore().get(store.getItemsInStore().size()-1),cart);
